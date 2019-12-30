@@ -1,7 +1,7 @@
 name: custom_switch_button
 description: A new Flutter plugin.
 version: 0.5.0
-homepage:
+homepage: https://github.com/TahaMalas/custom_switch_button
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
