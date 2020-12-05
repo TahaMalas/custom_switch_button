@@ -40,7 +40,7 @@ class CustomSwitchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tween = MultiTrackTween([
-      Track("paddingLeft").add(animationDuration, Tween(begin: 0.0, end: 20.0)),
+      Track("paddingLeft").add(animationDuration, Tween(begin: 0.0, end: buttonWidth/2)),
       Track("color").add(animationDuration,
           ColorTween(begin: unCheckedColor, end: checkedColor)),
     ]);
