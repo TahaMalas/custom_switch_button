@@ -23,21 +23,17 @@ class CustomSwitchButton extends StatelessWidget {
   final double backgroundBorderRadius;
 
   const CustomSwitchButton({
-    @required this.backgroundColor,
-    @required this.checked,
-    @required this.checkedColor,
-    @required this.unCheckedColor,
-    @required this.animationDuration,
+    required this.backgroundColor,
+    required this.checked,
+    required this.checkedColor,
+    required this.unCheckedColor,
+    required this.animationDuration,
     this.buttonWidth = 40,
     this.buttonHeight = 20,
     this.indicatorWidth = 13,
     this.indicatorBorderRadius = 25,
     this.backgroundBorderRadius = 30,
-  })  : assert(animationDuration != null),
-        assert(unCheckedColor != null),
-        assert(backgroundColor != null),
-        assert(checkedColor != null),
-        assert(checked != null);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +71,7 @@ class CustomSwitchButton extends StatelessWidget {
   }
 
   Widget _buildCheckbox(
-      BuildContext context, Widget child, MultiTweenValues<AniProps> value) {
+      BuildContext context, Widget? child, MultiTweenValues<AniProps> value) {
     return Container(
       decoration: _outerBoxDecoration(backgroundColor),
       width: buttonWidth,
