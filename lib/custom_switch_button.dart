@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_animations/multi_tween/multi_tween.dart';
-import 'package:simple_animations/stateless_animation/custom_animation.dart';
+import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 
 enum AniProps { paddingLeft, color }
 

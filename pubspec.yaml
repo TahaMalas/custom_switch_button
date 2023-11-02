@@ -7,9 +7,11 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
+  cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
-  simple_animations: ^4.0.1
+  sa4_migration_kit: ^1.0.0
+  simple_animations: ^5.0.2
 
 
 
