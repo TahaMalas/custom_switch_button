@@ -41,7 +41,7 @@ android {
     compileOptions {
         
     }
-    compileSdk 34
+    compileSdk 33
     ndkVersion '26.1.10909125'
 }
 
