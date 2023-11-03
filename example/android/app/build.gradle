@@ -28,6 +28,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     namespace 'com.tahamalas.custom_switch_button_example'
     compileSdk 33
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -56,6 +63,7 @@ android {
     }
 
 }
+
 
 flutter {
     source '../..'
