@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations/controlled_animation.dart';
-import 'package:simple_animations/simple_animations/multi_track_tween.dart';
+import 'package:sa4_migration_kit/sa4_migration_kit.dart';
+
+enum AniProps { paddingLeft, color }
 
 class CustomSwitchButton extends StatelessWidget {
   final bool checked;
@@ -21,41 +22,55 @@ class CustomSwitchButton extends StatelessWidget {
   final double backgroundBorderRadius;
 
   const CustomSwitchButton({
-    @required this.backgroundColor,
-    @required this.checked,
-    @required this.checkedColor,
-    @required this.unCheckedColor,
-    @required this.animationDuration,
+    required this.backgroundColor,
+    required this.checked,
+    required this.checkedColor,
+    required this.unCheckedColor,
+    required this.animationDuration,
     this.buttonWidth = 40,
     this.buttonHeight = 20,
     this.indicatorWidth = 13,
     this.indicatorBorderRadius = 25,
     this.backgroundBorderRadius = 30,
-  })  : assert(animationDuration != null),
-        assert(unCheckedColor != null),
-        assert(backgroundColor != null),
-        assert(checkedColor != null),
-        assert(checked != null);
+  });
 
   @override
   Widget build(BuildContext context) {
-    var tween = MultiTrackTween([
-      Track("paddingLeft").add(animationDuration, Tween(begin: 0.0, end: 20.0)),
-      Track("color").add(animationDuration,
-          ColorTween(begin: unCheckedColor, end: checkedColor)),
-    ]);
+    // var tween = MultiTween([
+    //   Track("paddingLeft").add(animationDuration, Tween(begin: 0.0, end: 20.0)),
+    //   Track("color").add(animationDuration,
+    //       ColorTween(begin: unCheckedColor, end: checkedColor)),
+    // ]);
+    var tween = MultiTween<AniProps>()
+      ..add(
+          AniProps.paddingLeft, Tween(begin: 0.0, end: 20.0), animationDuration)
+      ..add(
+          AniProps.color,
+          ColorTween(begin: unCheckedColor, end: checkedColor),
+          animationDuration);
 
-    return ControlledAnimation(
-      playback: checked ? Playback.PLAY_FORWARD : Playback.PLAY_REVERSE,
-      startPosition: checked ? 1.0 : 0.0,
-      duration: tween.duration * 1.2,
+    // return ControlledAnimation(
+    //   playback: checked ? Playback.PLAY_FORWARD : Playback.PLAY_REVERSE,
+    //   startPosition: checked ? 1.0 : 0.0,
+    //   duration: tween.duration * 1.2,
+    //   tween: tween,
+    //   curve: Curves.easeInOut,
+    //   builder: _buildCheckbox,
+    // );
+    return CustomAnimation<MultiTweenValues<AniProps>>(
+      builder: _buildCheckbox,
       tween: tween,
       curve: Curves.easeInOut,
-      builder: _buildCheckbox,
+      control: checked
+          ? CustomAnimationControl.play
+          : CustomAnimationControl.playReverse,
+      startPosition: checked ? 1.0 : 0.0,
+      duration: tween.duration * 1.2,
     );
   }
 
-  Widget _buildCheckbox(context, animation) {
+  Widget _buildCheckbox(
+      BuildContext context, Widget? child, MultiTweenValues<AniProps> value) {
     return Container(
       decoration: _outerBoxDecoration(backgroundColor),
       width: buttonWidth,
@@ -65,9 +80,9 @@ class CustomSwitchButton extends StatelessWidget {
         children: [
           Positioned(
               child: Padding(
-            padding: EdgeInsets.only(left: animation["paddingLeft"]),
+            padding: EdgeInsets.only(left: value.get(AniProps.paddingLeft)),
             child: Container(
-              decoration: _innerBoxDecoration(animation["color"]),
+              decoration: _innerBoxDecoration(value.get(AniProps.color)),
               width: indicatorWidth,
             ),
           ))
